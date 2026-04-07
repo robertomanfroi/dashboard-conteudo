@@ -8,6 +8,11 @@ import { mockConcorrentes, type Concorrente, type Tendencia } from "@/lib/mock-d
 
 type SortKey = keyof Pick<Concorrente, "seguidores" | "crescimento" | "engajamento">;
 
+function SortIcon({ sortKey, current, asc }: { sortKey: SortKey; current: SortKey; asc: boolean }) {
+  if (sortKey !== current) return null;
+  return asc ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />;
+}
+
 const TEND_ICON: Record<Tendencia, React.ReactNode> = {
   up:     <TrendingUp  className="w-3.5 h-3.5 text-green-400" />,
   down:   <TrendingDown className="w-3.5 h-3.5 text-red-400" />,
@@ -34,10 +39,6 @@ export default function ConcorrentesPage() {
     if (sort === key) setAsc((v) => !v);
     else { setSort(key); setAsc(false); }
   };
-
-  const SortIcon = ({ k }: { k: SortKey }) => sort === k
-    ? (asc ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)
-    : null;
 
   return (
     <div className="space-y-6">
@@ -98,13 +99,13 @@ export default function ConcorrentesPage() {
                   <th className="text-left pb-2 pr-4 font-medium">Perfil</th>
                   <th className="text-left pb-2 pr-4 font-medium">Plataforma</th>
                   <th className="text-right pb-2 pr-4 font-medium cursor-pointer select-none hover:text-foreground" onClick={() => toggleSort("seguidores")}>
-                    <span className="inline-flex items-center gap-1">Seguidores <SortIcon k="seguidores" /></span>
+                    <span className="inline-flex items-center gap-1">Seguidores <SortIcon sortKey="seguidores" current={sort} asc={asc} /></span>
                   </th>
                   <th className="text-right pb-2 pr-4 font-medium cursor-pointer select-none hover:text-foreground" onClick={() => toggleSort("crescimento")}>
-                    <span className="inline-flex items-center gap-1">Crescimento <SortIcon k="crescimento" /></span>
+                    <span className="inline-flex items-center gap-1">Crescimento <SortIcon sortKey="crescimento" current={sort} asc={asc} /></span>
                   </th>
                   <th className="text-right pb-2 pr-4 font-medium cursor-pointer select-none hover:text-foreground" onClick={() => toggleSort("engajamento")}>
-                    <span className="inline-flex items-center gap-1">Engajamento <SortIcon k="engajamento" /></span>
+                    <span className="inline-flex items-center gap-1">Engajamento <SortIcon sortKey="engajamento" current={sort} asc={asc} /></span>
                   </th>
                   <th className="text-left pb-2 pr-4 font-medium">Frequência</th>
                   <th className="text-left pb-2 font-medium">Tendência</th>
