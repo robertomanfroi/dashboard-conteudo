@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Instagram,
+  Camera,
   BarChart3,
   Calendar,
   Users,
@@ -14,56 +14,67 @@ import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 
 const navItems = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/instagram", label: "Gestor de Instagram", icon: Instagram },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/calendario", label: "Calendário", icon: Calendar },
-  { href: "/concorrentes", label: "Concorrentes", icon: Users },
-  { href: "/noticias", label: "Notícias", icon: Newspaper },
+  { href: "/",            label: "Dashboard",           icon: LayoutDashboard, badge: null },
+  { href: "/instagram",   label: "Instagram",            icon: Camera,       badge: "3" },
+  { href: "/analytics",   label: "Analytics",            icon: BarChart3,       badge: null },
+  { href: "/calendario",  label: "Calendário",           icon: Calendar,        badge: "8" },
+  { href: "/concorrentes",label: "Concorrentes",         icon: Users,           badge: null },
+  { href: "/noticias",    label: "Notícias",             icon: Newspaper,       badge: "3" },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 shrink-0 flex flex-col border-r border-border bg-card h-screen">
+    <aside className="w-60 shrink-0 flex flex-col border-r border-border/60 bg-card/80 backdrop-blur h-screen">
       {/* Logo */}
-      <div className="flex items-center gap-2 px-6 py-5">
-        <div className="w-7 h-7 rounded-md bg-primary flex items-center justify-center">
+      <div className="flex items-center gap-2.5 px-5 py-4 border-b border-border/60">
+        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-sm">
           <LayoutDashboard className="w-4 h-4 text-primary-foreground" />
         </div>
-        <span className="font-semibold text-sm tracking-tight">Content Hub</span>
+        <div>
+          <span className="font-semibold text-sm tracking-tight block leading-none">Content Hub</span>
+          <span className="text-[10px] text-muted-foreground">Dashboard</span>
+        </div>
       </div>
 
-      <Separator />
-
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
-        {navItems.map(({ href, label, icon: Icon }) => {
+      <nav className="flex-1 px-3 py-3 space-y-0.5">
+        <p className="text-[10px] font-semibold text-muted-foreground/60 uppercase tracking-widest px-2 pb-1.5 pt-1">Menu</p>
+        {navItems.map(({ href, label, icon: Icon, badge }) => {
           const active = pathname === href;
           return (
             <Link
               key={href}
               href={href}
               className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
+                "flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm transition-all duration-150",
                 active
-                  ? "bg-primary/10 text-primary font-medium"
-                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  ? "bg-primary/15 text-primary font-medium shadow-sm"
+                  : "text-muted-foreground hover:bg-accent/60 hover:text-foreground"
               )}
             >
-              <Icon className="w-4 h-4 shrink-0" />
-              {label}
+              <Icon className={cn("w-4 h-4 shrink-0", active ? "text-primary" : "")} />
+              <span className="flex-1">{label}</span>
+              {badge && (
+                <span className="text-[10px] bg-primary/20 text-primary px-1.5 py-0.5 rounded-full font-medium">
+                  {badge}
+                </span>
+              )}
             </Link>
           );
         })}
       </nav>
 
-      <Separator />
-
       {/* Footer */}
-      <div className="px-6 py-4">
-        <p className="text-xs text-muted-foreground">Content Hub v1.0</p>
+      <div className="px-5 py-3 border-t border-border/60">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary/40 to-primary/20 flex items-center justify-center text-[10px] font-bold text-primary">R</div>
+          <div>
+            <p className="text-xs font-medium leading-none">Roberto</p>
+            <p className="text-[10px] text-muted-foreground mt-0.5">Content Hub v1.0</p>
+          </div>
+        </div>
       </div>
     </aside>
   );

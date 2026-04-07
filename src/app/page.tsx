@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Instagram, BarChart3, Calendar, Users, Newspaper } from "lucide-react";
+import { Camera, BarChart3, Calendar, Users, Newspaper } from "lucide-react";
 import Link from "next/link";
 
 const modules = [
-  { href: "/instagram", label: "Gestor de Instagram", icon: Instagram, description: "Posts agendados, rascunhos e backlog de ideias", status: "Story 1.2" },
+  { href: "/instagram", label: "Gestor de Instagram", icon: Camera, description: "Posts agendados, rascunhos e backlog de ideias", status: "Story 1.2" },
   { href: "/analytics", label: "Analytics", icon: BarChart3, description: "Métricas de performance e crescimento", status: "Story 1.3" },
   { href: "/calendario", label: "Calendário de Conteúdo", icon: Calendar, description: "Visualização mensal de posts por plataforma", status: "Story 1.4" },
   { href: "/concorrentes", label: "Rastreador de Concorrentes", icon: Users, description: "Monitoramento de engajamento e tendências", status: "Story 1.5" },
