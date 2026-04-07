@@ -47,7 +47,8 @@ export default function NoticiasPage() {
         <div className="flex gap-2 flex-wrap">
           <button
             onClick={() => setTopico("todos")}
-            className={cn("px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+            aria-pressed={topico === "todos"}
+            className={cn("px-4 py-2 rounded-full text-xs font-medium border transition-colors cursor-pointer min-h-[44px]",
               topico === "todos" ? "bg-primary text-primary-foreground border-primary" : "border-border text-muted-foreground hover:border-primary/40"
             )}
           >
@@ -57,7 +58,8 @@ export default function NoticiasPage() {
             <button
               key={t}
               onClick={() => setTopico(t)}
-              className={cn("px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+              aria-pressed={topico === t}
+              className={cn("px-4 py-2 rounded-full text-xs font-medium border transition-colors cursor-pointer min-h-[44px]",
                 topico === t
                   ? `${TOPICO_CONFIG[t].color} border-transparent`
                   : "border-border text-muted-foreground hover:border-primary/40"
@@ -83,7 +85,13 @@ export default function NoticiasPage() {
                     <Badge className="text-[10px] bg-primary/20 text-primary border-primary/30 border">Novo</Badge>
                   )}
                 </div>
-                <a href={n.url} className="text-muted-foreground hover:text-foreground transition-colors shrink-0">
+                <a
+                  href={n.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Abrir "${n.titulo}" em nova aba`}
+                  className="text-muted-foreground hover:text-foreground transition-colors shrink-0 p-1.5 rounded hover:bg-accent min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                >
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
@@ -99,8 +107,14 @@ export default function NoticiasPage() {
       </div>
 
       {filtradas.length === 0 && (
-        <div className="text-center py-12 text-muted-foreground text-sm">
-          Nenhuma notícia encontrada para os filtros selecionados.
+        <div className="text-center py-12 space-y-2">
+          <p className="text-muted-foreground text-sm">Nenhuma notícia encontrada para os filtros selecionados.</p>
+          <button
+            onClick={() => { setTopico("todos"); setBusca(""); }}
+            className="text-xs text-primary hover:underline cursor-pointer"
+          >
+            Limpar filtros
+          </button>
         </div>
       )}
     </div>

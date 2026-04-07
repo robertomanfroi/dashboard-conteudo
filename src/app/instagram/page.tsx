@@ -76,7 +76,8 @@ export default function InstagramPage() {
           <button
             key={t}
             onClick={() => setFiltro(t)}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-colors border ${
+            aria-pressed={filtro === t}
+            className={`px-4 py-2 rounded-full text-xs font-medium transition-colors border cursor-pointer min-h-[44px] ${
               filtro === t
                 ? "bg-primary text-primary-foreground border-primary"
                 : "border-border text-muted-foreground hover:border-primary/40"

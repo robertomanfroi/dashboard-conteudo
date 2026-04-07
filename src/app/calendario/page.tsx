@@ -64,8 +64,9 @@ export default function CalendarioPage() {
             <button
               key={p}
               onClick={() => toggleFiltro(p)}
+              aria-pressed={filtros.has(p)}
               className={cn(
-                "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                "px-4 py-2 rounded-full text-xs font-medium border transition-colors cursor-pointer min-h-[44px]",
                 filtros.has(p) ? PLAT_COLOR[p] + " border-transparent" : "border-border text-muted-foreground"
               )}
             >
@@ -78,11 +79,11 @@ export default function CalendarioPage() {
       <Card>
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <button onClick={prevMonth} className="p-1 rounded hover:bg-accent transition-colors">
+            <button onClick={prevMonth} aria-label="Mês anterior" className="p-2 rounded hover:bg-accent transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center">
               <ChevronLeft className="w-4 h-4" />
             </button>
             <CardTitle className="text-base">{meses[month]} {year}</CardTitle>
-            <button onClick={nextMonth} className="p-1 rounded hover:bg-accent transition-colors">
+            <button onClick={nextMonth} aria-label="Próximo mês" className="p-2 rounded hover:bg-accent transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center">
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -116,14 +117,14 @@ export default function CalendarioPage() {
                     {posts.slice(0, 2).map((p) => (
                       <div
                         key={p.id}
-                        className={cn("text-[9px] px-1 py-0.5 rounded truncate", PLAT_COLOR[p.plataforma])}
+                        className={cn("text-[11px] px-1 py-0.5 rounded truncate", PLAT_COLOR[p.plataforma])}
                         title={p.titulo}
                       >
                         {p.tipo}
                       </div>
                     ))}
                     {posts.length > 2 && (
-                      <div className="text-[9px] text-muted-foreground px-1">+{posts.length - 2}</div>
+                      <div className="text-[11px] text-muted-foreground px-1">+{posts.length - 2}</div>
                     )}
                   </div>
                 </div>
